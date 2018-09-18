@@ -1,0 +1,12 @@
+export { default as A } from './bird-long-tail.jpg';
+export { default as B } from './bird-of-prey.png';
+export { default as C } from './black-bird.jpg';
+export { default as D } from './yellowbird.jpg';
+export { default as E } from './cockatiel.jpg';
+export { default as F } from './colorful-bird.jpg';
+export { default as G } from './finch.jpg';
+export { default as H } from './grey-bird.jpg';
+export { default as I } from './hummingbird.jpg';
+export { default as J } from './orange-bird.jpg';
+export { default as K } from './small-owl.jpg';
+export { default as L } from './woodpecker.jpg';
