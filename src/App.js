@@ -7,8 +7,6 @@ import * as Images from './components/images/index';
 
 // CSS
 import { Grid, Container, Progress, Header } from 'semantic-ui-react';
-import './semantic/dist/semantic.min.css';
-import './App.css';
 
 let imgArray = [];
 
