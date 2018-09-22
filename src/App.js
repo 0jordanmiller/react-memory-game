@@ -6,7 +6,7 @@ import ImageCard from './components/click-image.js';
 import * as Images from './components/images/index';
 
 // CSS
-import { Grid, Container, Progress } from 'semantic-ui-react';
+import { Grid, Container, Progress, Header } from 'semantic-ui-react';
 import './semantic/dist/semantic.min.css';
 import './App.css';
 
@@ -31,38 +31,59 @@ class App extends Component {
     images: imgArray,
     guesses: [],
     score: 0,
+    hasPlayed: false
   }
 
   handleClick = (src) => {
     shuffleArray(imgArray);
+    let isInArray = this.state.guesses.includes(src);
     let newGuesses = this.state.guesses.concat(src)
 
-    for (let i = -1; i < this.state.guesses.length; i++) {
-      if (src === this.state.guesses[i]) {
-        this.setState({
-          guesses: [],
-          score: 0
-        })
-        console.log('try again', this.state);
-      } else {
-        this.setState({
-          images: imgArray,
-          guesses: newGuesses,
-          score: this.state.guesses.length + 1
-        })
-
-      }
+    if (isInArray) {
+      this.setState({
+        guesses: [],
+        score: 0,
+        hasPlayed: true
+      })
+      console.log('try again', this.state);
+    } else {
+      this.setState({
+        images: imgArray,
+        guesses: newGuesses,
+        score: this.state.guesses.length + 1,
+        hasPlayed: true
+      })
     }
+
     console.log(this.state.guesses);
   }
 
   render() {
+    const playerHasPlayed = this.state.hasPlayed;
+    const score = this.state.score;
+
+    let header;
+    if (!playerHasPlayed) {
+      header = <Header as='h3'>Click any bird to start. Click all twelve birds once to win.</Header>
+    } else if (playerHasPlayed && score === 0) {
+      header = <Header as='h3'>Click to try again</Header>
+    } else if (score === 9) {
+      header = <Header as='h3'>You're almost there</Header>
+
+    }
+
+
     return (
       <div className="App">
         <Container>
           <br />
-          <Progress value={this.state.score} total={12} progress={'ratio'}>Number Correct</Progress>
+          <Progress size='large' value={this.state.score} total={12} progress={'ratio'}>Number Correct</Progress>
           <Grid >
+            <Grid.Row>
+              <Grid.Column>
+                {header}
+              </Grid.Column>
+            </Grid.Row>
             <Grid.Row>
               {this.state.images.map((image, index) => (
                 <Grid.Column width='4' >
